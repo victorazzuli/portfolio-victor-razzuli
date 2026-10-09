@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens (RGB para opacidade no Tailwind) */
+:root {
+  --bg: 11 12 16;        /* #0B0C10 grafite profundo */
+  --surface: 20 22 28;   /* #14161C */
+  --surface-2: 29 32 40; /* #1D2028 */
+  --text: 236 237 239;   /* #ECEDEF  contraste 16.8:1 */
+  --muted: 142 149 163;  /* #8E95A3  contraste 6.4:1 */
+  --accent: 110 139 255; /* #6E8BFF  azul de sinal (6.1:1 sobre bg) */
+  --header-h: 72px;
+}
+
+@layer base {
+  html { background: rgb(var(--bg)); color: rgb(var(--text)); scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); color-scheme: dark; -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-bg font-sans text-text antialiased; }
+  :focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 6px; }
+  ::selection { background: rgb(var(--accent)); color: rgb(var(--bg)); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10; }
+  .display { @apply font-display font-bold leading-[0.95] tracking-[-0.03em]; text-wrap: balance; }
+  .label { @apply font-mono text-[12px] uppercase tracking-[0.16em] text-muted; }
+  .btn { @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-6 text-[15px] font-semibold transition-[transform,background-color,color,border-color] duration-200 active:scale-[0.97]; }
+  .btn-primary { @apply btn bg-text text-bg hover:bg-accent; }
+  .btn-ghost { @apply btn border border-text/20 text-text hover:border-text/60; }
+  .chip { @apply inline-flex items-center rounded-full border border-text/15 px-3 py-1 font-mono text-[12px] text-text/80; }
+}
+
+/* Rótulos dos nós da rede (drei <Html>) */
+.nn-label { display: flex; align-items: center; gap: 8px; white-space: nowrap; font: 500 12px/1 var(--font-mono), monospace; letter-spacing: .04em; color: rgb(var(--text) / .55); transition: color .2s, transform .2s; transform: translateY(-50%); }
+.nn-label-on { color: rgb(var(--text)); transform: translateY(-50%) translateX(4px); }
+.nn-dot { width: 6px; height: 6px; border-radius: 99px; }
